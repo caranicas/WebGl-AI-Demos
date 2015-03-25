@@ -36,12 +36,8 @@ class DemoInterface
   __initCamera: ->
     @camera = new THREE.PerspectiveCamera( 90, window.innerWidth / window.innerHeight, 1, 1000 )
     @camera.position.z = @size-(@size/3)
-    #@camera = new THREE.PerspectiveCamera( 100, window.innerWidth / window.innerHeight, 1, 10000 )
-    #@camera.position.z = 20
-    #@camera.position.y = 10
-
     controls = new Orbit(@camera)
-    controls.addEventListener( 'change', @render)
+    controls.addEventListener('change', @render)
 
   __initGeometry: ->
     @__axis() if @debugging
