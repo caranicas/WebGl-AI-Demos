@@ -50,9 +50,9 @@ class FacingDemo extends DemoInterface
       themesh = new THREE.Mesh( geometry, material )
       themesh.position.set(randX,randY,randZ)
       boid = new Boid()
-      xvel = 1
+      xvel = 0
       yvel = 0
-      zvel = 0
+      zvel = 1
       boid.init({behavior:new BehaviorFacing(boid), mesh:themesh, bounding:@size, velocity:new THREE.Vector3(xvel, yvel, zvel)})
       @scene.add(boid.mesh)
       @sceneObjs.push(boid)

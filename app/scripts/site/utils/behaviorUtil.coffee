@@ -41,29 +41,37 @@ class Util
     return avoidance;
 
   facing:(entity) ->
-
+    console.log 'facing'
     # VERY CLOSE TO WORKING
-    # FACES THE NOW DIRECTION
-    # orignialDirection = entity.getVelocity().clone()
-    # nowDirection =  new THREE.Vector3(1,0,1)
-    # rotationAxis = new THREE.Vector3()
-    # rotationAxis.crossVectors( orignialDirection, nowDirection )
-    # rotAngle = orignialDirection.angleTo(nowDirection)
+    # # FACES THE NOW DIRECTION
+    # vel = entity.getVelocity().clone()
+    # vel.normalize()
+    # up = new THREE.Vector3(0,1,0)
+    # left = new THREE.Vector3(1,0,0)
+    # ortho1 =  new THREE.Vector3().crossVectors( vel, up )
+    # ortho2 = new THREE.Vector3().crossVectors( vel, left )
+    # rotation = new THREE.Matrix4().makeBasis(ortho2,vel,up)
     # quat = new THREE.Quaternion()
-    # quat.setFromAxisAngle(rotationAxis, rotAngle)
-    # #console.log 'ANGLE',rotAngle
+    # quat.setFromRotationMatrix(rotation)
     # entity.mesh.rotation.setFromQuaternion(quat,'XYZ')
 
-    pos = entity.getPosition().clone()
-    vel = entity.getVelocity().clone()
-    target  = new THREE.Vector3().addVectors(pos, vel)
-    rotationAxis = new THREE.Vector3()
-    rotationAxis.crossVectors( vel, target )
-    rotAngle = vel.angleTo(target)
-    quat = new THREE.Quaternion()
-    quat.setFromAxisAngle(rotationAxis, rotAngle)
+
+    #orthoginal = new THREE.Vector3().crossVectors( vel, right )
+    #console.log 'right', right
+
+
+
+
+    #pos = entity.getPosition().clone()
+    #vel = entity.getVelocity().clone()
+    #target  = new THREE.Vector3().addVectors(pos, vel)
+    #rotationAxis = new THREE.Vector3()
+    #rotationAxis.crossVectors( vel, target )
+    #rotAngle = vel.angleTo(target)
+    #quat = new THREE.Quaternion()
+    #quat.setFromUnitVectors (rotationAxis, rotAngle)
     #console.log 'ANGLE',rotAngle
-    entity.mesh.rotation.setFromQuaternion(quat,'XYZ')
+    #entity.mesh.rotation.setFromQuaternion(quat,'XYZ')
 
 
     # pos = entity.getPosition().clone()
