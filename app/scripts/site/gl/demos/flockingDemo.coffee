@@ -10,7 +10,7 @@ class FlockingDemo extends DemoInterface
     lightTwoColor:0xffffff
 
   size:200
-  vertOff:60
+  vertOff:0
   flockCount:40
 
 
@@ -28,6 +28,7 @@ class FlockingDemo extends DemoInterface
     directions  = ["xpos", "xneg", "ypos", "yneg", "zpos", "zneg"]
     imageSuffix = ".png"
     skyGeometry = new THREE.BoxGeometry( @size, @size, @size )
+    console.log  'geometry',skyGeometry
     materialArray = []
     i = 0
     while i < 6
