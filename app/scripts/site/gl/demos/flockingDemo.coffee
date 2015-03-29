@@ -43,7 +43,7 @@ class FlockingDemo extends DemoInterface
     i = 0
     while i < @flockCount
       randX = (Math.random()*(@size/5)) - (@size/10)
-      randY = (Math.random()*(@size/5)) - (@size/10)
+      randY = 0#(Math.random()*(@size/5)) - (@size/10)
       randZ = (Math.random()*(@size/5)) - (@size/10)
       geometry = new THREE.CylinderGeometry(0,1,4,8,1)
       material = new THREE.MeshLambertMaterial( { color: 0x00ffff, wireframe: false} )
