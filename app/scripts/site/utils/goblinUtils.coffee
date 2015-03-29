@@ -55,6 +55,15 @@ class GoblinUtils
 
     box
 
+
+  createCone: ( radius, half_height, mass, material,hasShadow ) ->
+    cone = new THREE.Mesh(new THREE.CylinderGeometry( 0, radius, half_height * 2 ),material)
+    cone.castShadow = hasShadow
+    cone.receiveShadow = hasShadow
+    cone.goblin = new Goblin.RigidBody(new Goblin.ConeShape( radius, half_height ),mass)
+
+    cone
+
   createMaterial:( name, repeat_x, repeat_y,renderer) ->
     def = @materials[name]
     map = THREE.ImageUtils.loadTexture(def.diffuse )

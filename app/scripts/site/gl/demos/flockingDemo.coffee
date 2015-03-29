@@ -2,6 +2,7 @@ THREE = require 'threejs'
 DemoInterface = require './DemoInterface'
 BehaviorFlock = require './../components/behaviors/flock.coffee'
 Boid = require './../components/objs/boid.coffee'
+Utils = require '../../utils/goblinUtils'
 
 class FlockingDemo extends DemoInterface
 
@@ -13,6 +14,12 @@ class FlockingDemo extends DemoInterface
   vertOff:60
   flockCount:40
 
+
+  constructor: ->
+    super
+
+  __initScene: ->
+    super
 
   __initGeometry: ->
     @createSkyBox()
@@ -59,8 +66,11 @@ class FlockingDemo extends DemoInterface
       ++i
 
   __update: ->
+    @world.step( 1 / 60 )
     for entity in @sceneObjs
-      entity.update(@sceneObjs)
+     entity.update(@sceneObjs)
+
+
 
 
 module.exports = FlockingDemo

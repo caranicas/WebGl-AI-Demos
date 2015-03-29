@@ -47,7 +47,6 @@ class Util
     pos.normalize()
     vel.normalize()
     dot = pos.dot(vel)
-    console.log('dot', dot)
     if Math.abs(dot + 1.0) < 0.000001
       return new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(0,1,0),3.1415)
 
