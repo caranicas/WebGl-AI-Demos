@@ -20,7 +20,7 @@ class Util
       vec3.multiplyScalar(max)
     vec3
 
-  avoidWalls:(vector,bounds, buffer, strength) ->
+  avoidWalls:(vector,bounds,buffer, strength) ->
     avoidance = new THREE.Vector3(0,0,0)
 
     if vector.x < -bounds+buffer
