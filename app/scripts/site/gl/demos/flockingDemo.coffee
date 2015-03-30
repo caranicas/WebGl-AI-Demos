@@ -59,33 +59,21 @@ class FlockingDemo extends DemoInterface
 
   __updateSepWeight:(value) ->
     @constraints.sepWeight = value
-    # for boid in @boids
-    #   boid.constraints.sepWeight = value
 
   __updateSepRad:(value) ->
     @constraints.sepRad = value
-    # for boid in @boids
-    #   boid.constraints.sepRad = value
 
   __updateAlignWeight:(value) ->
     @constraints.aligWeight = value
-    # for boid in @boids
-    #   boid.constraints.aligWeight = value
 
   __updateAlignRad:(value) ->
     @constraints.aligRad = value
-    # for boid in @boids
-    #   boid.constraints.aligRad = value
 
   __updateCohWeight:(value) ->
     @constraints.cohWeight = value
-    # for boid in @boids
-    #   boid.constraints.cohWeight = value
 
   __updateCohRad:(value) ->
     @constraints.cohRad = value
-    # for boid in @boids
-    #   boid.cohRad = value
 
   createSkyBox: ->
     imagePrefix = "textures/skybox/"
