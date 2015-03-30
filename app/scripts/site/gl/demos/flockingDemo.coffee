@@ -15,7 +15,7 @@ class FlockingDemo extends DemoInterface
 
   __initScene: ->
     super
-    @alterant = new Alterant({sepWeight:5})
+    @alterant = new Alterant()
 
   __initGeometry: ->
     @createSkyBox()
@@ -83,12 +83,10 @@ class FlockingDemo extends DemoInterface
       boid.cohRad = value
 
   createSkyBox: ->
-    console.log 'skyBox'
     imagePrefix = "textures/skybox/"
     directions  = ["xpos", "xneg", "ypos", "yneg", "zpos", "zneg"]
     imageSuffix = ".png"
     skyGeometry = new THREE.BoxGeometry( @size, @size, @size )
-    console.log  'geometry',skyGeometry
     materialArray = []
     i = 0
     while i < 6
