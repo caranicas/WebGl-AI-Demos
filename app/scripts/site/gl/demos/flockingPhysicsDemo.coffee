@@ -10,7 +10,7 @@ class FlockingPhysicsDemo extends DemoInterface
 
   size:200
   vertOff:0
-  flockCount:5
+  flockCount:30
 
   constructor: ->
     super
@@ -65,10 +65,10 @@ class FlockingPhysicsDemo extends DemoInterface
       yvel = 0
       zvel = 0#Math.random()*10
       cone.goblin.position.x = randX #0
-      cone.goblin.position.y = 0
-      cone.goblin.position.z = 0
+      cone.goblin.position.y = randY
+      cone.goblin.position.z = randZ
       boid = new Boid()
-      boid.init({behavior:new Behavior(boid), object:cone,constraints:@constraints, bounding:@size, initalVel:{xvel, yvel, zvel}})
+      boid.init({behavior:new Behavior(boid, @constraints), object:cone,constraints:@constraints, bounding:@size, initalVel:{xvel, yvel, zvel}})
 
       @sceneObjs.push(boid)
       @scene.add(cone)
