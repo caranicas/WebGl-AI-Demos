@@ -1,12 +1,12 @@
 THREE = require 'threejs'
-DemoInterface = require './DemoInterface'
+Demo = require './DemoInterface'
 Behavior = require './../components/behaviors/flockBehavior.coffee'
 Constraint = require './../components/behaviors/constraints/flockConstraint.coffee'
 Boid = require './../components/objs/boid.coffee'
 Utils = require '../../utils/goblinUtils'
 
 
-class FlockingDemo extends DemoInterface
+class FlockingDemo extends Demo
 
   size:200
   vertOff:0
