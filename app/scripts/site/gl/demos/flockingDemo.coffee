@@ -62,28 +62,22 @@ class FlockingDemo extends DemoInterface
     )
 
   __updateSepWeight:(value) ->
-    for boid in @boids
-      boid.constraints.sepWeight = value
+    @constraints.sepWeight = value
 
   __updateSepRad:(value) ->
-    for boid in @boids
-      boid.constraints.sepRad = value
+    @constraints.sepRad = value
 
   __updateAlignWeight:(value) ->
-    for boid in @boids
-      boid.constraints.aligWeight = value
+    @constraints.aligWeight = value
 
   __updateAlignRad:(value) ->
-    for boid in @boids
-      boid.constraints.aligRad = value
+    @constraints.aligRad = value
 
   __updateCohWeight:(value) ->
-    for boid in @boids
-      boid.constraints.cohWeight = value
+    @constraints.cohWeight = value
 
   __updateCohRad:(value) ->
-    for boid in @boids
-      boid.cohRad = value
+    @constraints.cohRad = value
 
   createSkyBox: ->
     imagePrefix = "textures/skybox/"
@@ -115,7 +109,7 @@ class FlockingDemo extends DemoInterface
       xvel = Math.random()
       yvel = Math.random()
       zvel = Math.random()
-      boid.init({behavior:new Behavior(boid), constraints:@constraints, mesh:themesh, bounding:@size, velocity:new THREE.Vector3(xvel, yvel, zvel)})
+      boid.init({behavior:new Behavior(boid,@constraints), mesh:themesh, bounding:@size, velocity:new THREE.Vector3(xvel, yvel, zvel)})
       @boids.push(boid)
       @scene.add(boid.mesh)
       @sceneObjs.push(boid)
