@@ -3,6 +3,7 @@ DemoInterface = require './DemoInterface'
 Behavior = require './../components/behaviors/flockBehavior.coffee'
 Constraint = require './../components/behaviors/constraints/flockConstraint.coffee'
 Boid = require './../components/objs/boid.coffee'
+Utils = require '../../utils/goblinUtils'
 
 
 class FlockingDemo extends DemoInterface
@@ -11,6 +12,9 @@ class FlockingDemo extends DemoInterface
   vertOff:0
   flockCount:40
   boids:new Array()
+
+  constructor: ->
+    super
 
   __initScene: ->
     super
@@ -113,7 +117,9 @@ class FlockingDemo extends DemoInterface
 
   __update: ->
     for entity in @sceneObjs
-      entity.update(@sceneObjs)
+     entity.update(@sceneObjs)
+
+
 
 
 module.exports = FlockingDemo
