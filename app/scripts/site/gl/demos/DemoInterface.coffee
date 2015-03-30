@@ -37,7 +37,6 @@ class DemoInterface
     @camera = new THREE.PerspectiveCamera( 90, window.innerWidth / window.innerHeight, 1, 1000 )
     @camera.position.z = @size-(@size/3)
     controls = new Orbit(@camera)
-    controls.addEventListener('change', @render)
 
   __initGeometry: ->
     @__axis() if @debugging
@@ -80,7 +79,6 @@ class DemoInterface
   __update: ->
 
   __resize: =>
-    console.log '@camera.aspect',@camera
     @camera.aspect = window.innerWidth / window.innerHeight
     @camera.updateProjectionMatrix()
     @renderer.setSize( window.innerWidth, window.innerHeight )
