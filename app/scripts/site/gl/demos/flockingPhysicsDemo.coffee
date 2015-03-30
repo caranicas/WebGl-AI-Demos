@@ -22,7 +22,7 @@ class FlockingPhysicsDemo extends DemoInterface
 
   __initGeometry: ->
     @createSkyBox()
-    #@createPhysiBoids()
+    @createPhysiBoids()
     super
 
   __initGoblin: ->
@@ -63,8 +63,8 @@ class FlockingPhysicsDemo extends DemoInterface
       randZ = (Math.random()*(@size/5)) - (@size/10)
       xvel = Math.random()*10
       yvel = 0
-      zvel = Math.random()*10
-      cone.goblin.position.x = randX#0
+      zvel = 0#Math.random()*10
+      cone.goblin.position.x = randX #0
       cone.goblin.position.y = 0
       cone.goblin.position.z = 0
       boid = new Boid()

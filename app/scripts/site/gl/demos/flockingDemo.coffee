@@ -13,15 +13,12 @@ class FlockingDemo extends DemoInterface
   flockCount:40
   boids:new Array()
 
-  __initScene: ->
-    super
-    @constraints = new Constraint()
-
   constructor: ->
     super
 
   __initScene: ->
     super
+    @constraints = new Constraint()
 
   __initGeometry: ->
     @createSkyBox()
@@ -125,7 +122,6 @@ class FlockingDemo extends DemoInterface
       ++i
 
   __update: ->
-    @world.step( 1 / 60 )
     for entity in @sceneObjs
      entity.update(@sceneObjs)
 
