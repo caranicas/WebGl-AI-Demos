@@ -1,6 +1,6 @@
 THREE = require 'threejs'
 Demo = require './flockingDemo'
-Behavior = require './../components/behaviors/flockPhysBehavior.coffee'
+Behavior = require './../components/behaviors/phys/flockPhysBehavior.coffee'
 Boid = require './../components/objs/phys/boidPhys.coffee'
 Constraint = require './../components/behaviors/constraints/flockConstraint.coffee'
 Goblin = require 'goblinphysics'

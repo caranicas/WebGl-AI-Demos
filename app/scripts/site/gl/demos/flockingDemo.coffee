@@ -1,6 +1,6 @@
 THREE = require 'threejs'
 Demo = require './DemoInterface'
-Behavior = require './../components/behaviors/flockBehavior.coffee'
+Behavior = require './../components/behaviors/base/flockBehavior.coffee'
 Constraint = require './../components/behaviors/constraints/flockConstraint.coffee'
 Boid = require './../components/objs/normal/boid.coffee'
 Utils = require '../../utils/goblinUtils'
