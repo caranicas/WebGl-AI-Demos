@@ -1,9 +1,8 @@
 THREE = require 'threejs'
 DemoInterface = require './DemoInterface'
-BehaviorFlock = require './../components/behaviors/flock.coffee'
-Alterant = require './../components/behaviors/alterants/alterantFlock.coffee'
+Behavior = require './../components/behaviors/flockBehavior.coffee'
+Constraint = require './../components/behaviors/constraints/flockConstraint.coffee'
 Boid = require './../components/objs/boid.coffee'
-
 
 
 class FlockingDemo extends DemoInterface
@@ -15,7 +14,7 @@ class FlockingDemo extends DemoInterface
 
   __initScene: ->
     super
-    @alterant = new Alterant()
+    @constraints = new Constraint()
 
   __initGeometry: ->
     @createSkyBox()
@@ -25,14 +24,14 @@ class FlockingDemo extends DemoInterface
   __initDat:->
     super
 
-    sepWeightController = @dat.add(@alterant,'sepWeight', 0, 10).step(.5)
-    sepRadController = @dat.add(@alterant,'sepRad', 0, 100).step(3)
+    sepWeightController = @dat.add(@constraints,'sepWeight', 0, 7).step(.2)
+    sepRadController = @dat.add(@constraints,'sepRad', 0, 100).step(3)
 
-    alignWeightController = @dat.add(@alterant,'aligWeight', 0, 10).step(.5)
-    alignRadController = @dat.add(@alterant,'aligRad', 0, 100).step(3)
+    alignWeightController = @dat.add(@constraints,'aligWeight', 0, 7).step(.2)
+    alignRadController = @dat.add(@constraints,'aligRad', 0, 100).step(3)
 
-    cohWeightController = @dat.add(@alterant,'cohWeight', 0, 10).step(.5)
-    cohRadController = @dat.add(@alterant,'cohRad', 0, 100).step(3)
+    cohWeightController = @dat.add(@constraints,'cohWeight', 0, 7).step(.2)
+    cohRadController = @dat.add(@constraints,'cohRad', 0, 100).step(3)
 
     sepWeightController.onChange( (value)=>
       @__updateSepWeight(value)
@@ -60,23 +59,23 @@ class FlockingDemo extends DemoInterface
 
   __updateSepWeight:(value) ->
     for boid in @boids
-      boid.alterant.sepWeight = value
+      boid.constraints.sepWeight = value
 
   __updateSepRad:(value) ->
     for boid in @boids
-      boid.alterant.sepRad = value
+      boid.constraints.sepRad = value
 
   __updateAlignWeight:(value) ->
     for boid in @boids
-      boid.alterant.aligWeight = value
+      boid.constraints.aligWeight = value
 
   __updateAlignRad:(value) ->
     for boid in @boids
-      boid.alterant.aligRad = value
+      boid.constraints.aligRad = value
 
   __updateCohWeight:(value) ->
     for boid in @boids
-      boid.alterant.cohWeight = value
+      boid.constraints.cohWeight = value
 
   __updateCohRad:(value) ->
     for boid in @boids
@@ -112,7 +111,7 @@ class FlockingDemo extends DemoInterface
       xvel = Math.random()
       yvel = Math.random()
       zvel = Math.random()
-      boid.init({behavior:new BehaviorFlock(boid), alterant:@alterant, mesh:themesh, bounding:@size, velocity:new THREE.Vector3(xvel, yvel, zvel)})
+      boid.init({behavior:new Behavior(boid), constraints:@constraints, mesh:themesh, bounding:@size, velocity:new THREE.Vector3(xvel, yvel, zvel)})
       @boids.push(boid)
       @scene.add(boid.mesh)
       @sceneObjs.push(boid)
