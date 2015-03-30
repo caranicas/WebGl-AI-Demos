@@ -40,16 +40,25 @@ class Util
 
     return avoidance;
 
+
   facing:(entity) ->
     vel = entity.getVelocity().clone()
     vel.normalize()
     up = new THREE.Vector3(0,1,0)
-    right = new THREE.Vector3(1,0,0)
-    ortho1 =  new THREE.Vector3().crossVectors( vel, up )
-    rotation = new THREE.Matrix4().makeBasis(ortho1,vel,up)
     quat = new THREE.Quaternion()
-    quat.setFromRotationMatrix(rotation)
+    quat.setFromUnitVectors(up,vel)
     entity.mesh.rotation.setFromQuaternion(quat,'XYZ')
+
+  # facing_old:(entity) ->
+  #   vel = entity.getVelocity().clone()
+  #   vel.normalize()
+  #   up = new THREE.Vector3(0,1,0)
+  #   right = new THREE.Vector3(1,0,0)
+  #   ortho1 =  new THREE.Vector3().crossVectors( vel, up )
+  #   rotation = new THREE.Matrix4().makeBasis(ortho1,vel,up)
+  #   quat = new THREE.Quaternion()
+  #   quat.setFromRotationMatrix(rotation)
+  #   entity.mesh.rotation.setFromQuaternion(quat,'XYZ')
 
 
 
