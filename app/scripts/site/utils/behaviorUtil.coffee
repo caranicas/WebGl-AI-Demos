@@ -20,44 +20,38 @@ class Util
       vec3.multiplyScalar(max)
     vec3
 
-  avoidWalls:(vector,bounds, buffer, stregth) ->
+  avoidWalls:(vector,bounds,buffer, strength) ->
     avoidance = new THREE.Vector3(0,0,0)
 
     if vector.x < -bounds+buffer
-      avoidance.x = stregth
+      avoidance.x = strength
     else if vector.x > bounds-buffer
-      avoidance.x = -stregth;
+      avoidance.x = -strength;
 
     if vector.y < -bounds+buffer
-      avoidance.y = stregth
+      avoidance.y = strength
     else if vector.y > bounds-buffer
-      avoidance.y = -stregth
+      avoidance.y = -strength
 
     if vector.z < -bounds+buffer
-      avoidance.z = stregth
+      avoidance.z = strength
     else if vector.z > bounds-buffer
-      avoidance.z = -stregth
+      avoidance.z = -strength
 
     return avoidance;
 
   facing:(entity) ->
-    pos = entity.getPosition().clone()
     vel = entity.getVelocity().clone()
-    target = new THREE.Vector3().addVectors(pos, vel)
-    pos.normalize()
     vel.normalize()
-    dot = pos.dot(vel)
-    if Math.abs(dot + 1.0) < 0.000001
-      return new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(0,1,0),3.1415)
-
-    if Math.abs(dot - 1.0) < 0.000001
-      return new THREE.Quaternion(0,0,0,1)
-
-    rotAngle = Math.acos(dot)
-    rotAxis = new THREE.Vector3().crossVectors(target,pos).normalize()
+    up = new THREE.Vector3(0,1,0)
+    right = new THREE.Vector3(1,0,0)
+    ortho1 =  new THREE.Vector3().crossVectors( vel, up )
+    rotation = new THREE.Matrix4().makeBasis(ortho1,vel,up)
     quat = new THREE.Quaternion()
-    quat.setFromAxisAngle(rotAxis, rotAngle)
+    quat.setFromRotationMatrix(rotation)
+    entity.mesh.rotation.setFromQuaternion(quat,'XYZ')
 
-    return quat
+
+
 
 module.exports = new Util

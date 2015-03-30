@@ -1,14 +1,15 @@
 THREE = require 'threejs'
 DemoInterface = require './DemoInterface'
-BehaviorFlock = require './../components/behaviors/flockPhys.coffee'
-BoidPhys = require './../components/objs/boidPhys.coffee'
+Behavior = require './../components/behaviors/flockPhysBehavior.coffee'
+Boid = require './../components/objs/boidPhys.coffee'
+Constraint = require './../components/behaviors/constraints/flockConstraint.coffee'
 Goblin = require 'goblinphysics'
 Utils = require '../../utils/goblinUtils'
 
 class FlockingPhysicsDemo extends DemoInterface
 
   size:200
-  vertOff:60
+  vertOff:0
   flockCount:5
 
   constructor: ->
@@ -16,11 +17,12 @@ class FlockingPhysicsDemo extends DemoInterface
 
   __initScene: ->
     super
+    @constraints = new Constraint()
     @__initGoblin()
 
   __initGeometry: ->
     @createSkyBox()
-    @createPhysiBoids()
+    #@createPhysiBoids()
     super
 
   __initGoblin: ->
@@ -29,7 +31,6 @@ class FlockingPhysicsDemo extends DemoInterface
     IS = new Goblin.IterativeSolver()
     @world = new Goblin.World(BB, NP, IS)
     @world.gravity.y = 0
-    console.log 'grvaity ', @world.gravity
 
   __initDat:->
     super
@@ -66,10 +67,9 @@ class FlockingPhysicsDemo extends DemoInterface
       cone.goblin.position.x = randX#0
       cone.goblin.position.y = 0
       cone.goblin.position.z = 0
-      boid = new BoidPhys()
-      boid.init({behavior:new BehaviorFlock(boid), object:cone, bounding:@size, initalVel:{xvel, yvel, zvel}})
+      boid = new Boid()
+      boid.init({behavior:new Behavior(boid), object:cone,constraints:@constraints, bounding:@size, initalVel:{xvel, yvel, zvel}})
 
-      console.log 'RIGID', cone.goblin
       @sceneObjs.push(boid)
       @scene.add(cone)
       @world.addRigidBody(cone.goblin)

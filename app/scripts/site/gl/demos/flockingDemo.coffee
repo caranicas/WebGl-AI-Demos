@@ -1,19 +1,21 @@
 THREE = require 'threejs'
 DemoInterface = require './DemoInterface'
-BehaviorFlock = require './../components/behaviors/flock.coffee'
+Behavior = require './../components/behaviors/flockBehavior.coffee'
+Constraint = require './../components/behaviors/constraints/flockConstraint.coffee'
 Boid = require './../components/objs/boid.coffee'
 Utils = require '../../utils/goblinUtils'
 
+
 class FlockingDemo extends DemoInterface
 
-  LightObj:
-    lightOneColor:0x00ff00
-    lightTwoColor:0xffffff
-
   size:200
-  vertOff:60
+  vertOff:0
   flockCount:40
+  boids:new Array()
 
+  __initScene: ->
+    super
+    @constraints = new Constraint()
 
   constructor: ->
     super
@@ -29,8 +31,64 @@ class FlockingDemo extends DemoInterface
   __initDat:->
     super
 
+    sepWeightController = @dat.add(@constraints,'sepWeight', 0, 7).step(.2)
+    sepRadController = @dat.add(@constraints,'sepRad', 0, 100).step(3)
+
+    alignWeightController = @dat.add(@constraints,'aligWeight', 0, 7).step(.2)
+    alignRadController = @dat.add(@constraints,'aligRad', 0, 100).step(3)
+
+    cohWeightController = @dat.add(@constraints,'cohWeight', 0, 7).step(.2)
+    cohRadController = @dat.add(@constraints,'cohRad', 0, 100).step(3)
+
+    sepWeightController.onChange( (value)=>
+      @__updateSepWeight(value)
+    )
+
+    sepRadController.onChange( (value)=>
+      @__updateSepRad(value)
+    )
+
+    alignWeightController.onChange( (value)=>
+      @__updateAlignWeight(value)
+    )
+
+    alignRadController.onChange( (value)=>
+      @__updateAlignRad(value)
+    )
+
+    cohWeightController.onChange( (value)=>
+      @__updateCohWeight(value)
+    )
+
+    cohRadController.onChange( (value)=>
+      @__updateCohRad(value)
+    )
+
+  __updateSepWeight:(value) ->
+    for boid in @boids
+      boid.constraints.sepWeight = value
+
+  __updateSepRad:(value) ->
+    for boid in @boids
+      boid.constraints.sepRad = value
+
+  __updateAlignWeight:(value) ->
+    for boid in @boids
+      boid.constraints.aligWeight = value
+
+  __updateAlignRad:(value) ->
+    for boid in @boids
+      boid.constraints.aligRad = value
+
+  __updateCohWeight:(value) ->
+    for boid in @boids
+      boid.constraints.cohWeight = value
+
+  __updateCohRad:(value) ->
+    for boid in @boids
+      boid.cohRad = value
+
   createSkyBox: ->
-    console.log 'skyBox'
     imagePrefix = "textures/skybox/"
     directions  = ["xpos", "xneg", "ypos", "yneg", "zpos", "zneg"]
     imageSuffix = ".png"
@@ -50,7 +108,7 @@ class FlockingDemo extends DemoInterface
     i = 0
     while i < @flockCount
       randX = (Math.random()*(@size/5)) - (@size/10)
-      randY = (Math.random()*(@size/5)) - (@size/10)
+      randY = 0#(Math.random()*(@size/5)) - (@size/10)
       randZ = (Math.random()*(@size/5)) - (@size/10)
       geometry = new THREE.CylinderGeometry(0,1,4,8,1)
       material = new THREE.MeshLambertMaterial( { color: 0x00ffff, wireframe: false} )
@@ -60,7 +118,8 @@ class FlockingDemo extends DemoInterface
       xvel = Math.random()
       yvel = Math.random()
       zvel = Math.random()
-      boid.init({behavior:new BehaviorFlock(boid), mesh:themesh, bounding:@size, velocity:new THREE.Vector3(xvel, yvel, zvel)})
+      boid.init({behavior:new Behavior(boid), constraints:@constraints, mesh:themesh, bounding:@size, velocity:new THREE.Vector3(xvel, yvel, zvel)})
+      @boids.push(boid)
       @scene.add(boid.mesh)
       @sceneObjs.push(boid)
       ++i
