@@ -1,12 +1,12 @@
 THREE = require 'threejs'
-DemoInterface = require './DemoInterface'
+Demo = require './flockingDemo'
 Behavior = require './../components/behaviors/flockPhysBehavior.coffee'
 Boid = require './../components/objs/phys/boidPhys.coffee'
 Constraint = require './../components/behaviors/constraints/flockConstraint.coffee'
 Goblin = require 'goblinphysics'
 Utils = require '../../utils/goblinUtils'
 
-class FlockingPhysicsDemo extends DemoInterface
+class FlockingPhysicsDemo extends Demo
 
   size:200
   vertOff:0
@@ -17,13 +17,7 @@ class FlockingPhysicsDemo extends DemoInterface
 
   __initScene: ->
     super
-    @constraints = new Constraint()
     @__initGoblin()
-
-  __initGeometry: ->
-    @createSkyBox()
-    @createPhysiBoids()
-    super
 
   __initGoblin: ->
     BB = new Goblin.BasicBroadphase()
@@ -32,28 +26,7 @@ class FlockingPhysicsDemo extends DemoInterface
     @world = new Goblin.World(BB, NP, IS)
     @world.gravity.y = 0
 
-  __initDat:->
-    super
-
-  createSkyBox: ->
-    console.log 'skyBox'
-    imagePrefix = "textures/skybox/"
-    directions  = ["xpos", "xneg", "ypos", "yneg", "zpos", "zneg"]
-    imageSuffix = ".png"
-    skyGeometry = new THREE.BoxGeometry( @size, @size, @size )
-    materialArray = []
-    i = 0
-    while i < 6
-      newMat = new THREE.MeshBasicMaterial({ map: THREE.ImageUtils.loadTexture( imagePrefix + directions[i] + imageSuffix ),side:THREE.BackSide})
-      materialArray.push(newMat)
-      i++
-    skyMaterial = new THREE.MeshFaceMaterial( materialArray )
-    skyBox = new THREE.Mesh( skyGeometry, skyMaterial )
-    skyBox.position.set(0,@vertOff,0)
-    @scene.add( skyBox )
-
-
-  createPhysiBoids: ->
+  createBoids: ->
     i = 0
     wood_material = Utils.createMaterial( 'wood', 1, 1,@renderer)
     while i < @flockCount
