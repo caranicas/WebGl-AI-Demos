@@ -10,6 +10,12 @@ module.exports = Backbone.Model.extend
         'name':'flocking'
         'demoClass':require './gl/demos/flockingDemo.coffee'
       },
+
+      {
+        'url':'/flockingAvoid'
+        'name':'flockingAvoid'
+        'demoClass':require './gl/demos/flockingAvoidDemo.coffee'
+      },
       {
         'url':'/flockingPhys'
         'name':'flockingPhys'

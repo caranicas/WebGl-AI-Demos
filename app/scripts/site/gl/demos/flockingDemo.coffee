@@ -21,9 +21,11 @@ class FlockingDemo extends Demo
     @constraints = new Constraint()
 
   __initGeometry: ->
+    super
+    console.log 'INITAL GEMOTERY2'
+
     @createSkyBox()
     @createBoids()
-    super
 
   __initDat:->
     super
@@ -90,6 +92,7 @@ class FlockingDemo extends Demo
       newMat = new THREE.MeshBasicMaterial({ map: THREE.ImageUtils.loadTexture( imagePrefix + directions[i] + imageSuffix ),side:THREE.BackSide})
       materialArray.push(newMat)
       i++
+
     skyMaterial = new THREE.MeshFaceMaterial( materialArray )
     skyBox = new THREE.Mesh( skyGeometry, skyMaterial )
     skyBox.position.set(0,@vertOff,0)
@@ -110,7 +113,7 @@ class FlockingDemo extends Demo
       yvel = Math.random()
       zvel = Math.random()
       boid.init({behavior:new Behavior(boid,@constraints), mesh:themesh, bounding:@size, velocity:new THREE.Vector3(xvel, yvel, zvel)})
-      @boids.push(boid)
+      #@boids.push(boid)
       @scene.add(boid.mesh)
       @sceneObjs.push(boid)
       ++i
