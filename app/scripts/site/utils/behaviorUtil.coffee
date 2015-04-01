@@ -48,7 +48,6 @@ class Util
     quat.setFromUnitVectors(up,vel)
     entity.mesh.rotation.setFromQuaternion(quat,'XYZ')
 
-
   lookAhead:(position, velocity, lookMag) ->
     ahead = velocity.clone().normalize()
     ahead.multiplyScalar lookMag
@@ -60,6 +59,10 @@ class Util
     end = line.end
     center = sphericalEntity.getCenter()
     rad = sphericalEntity.getRadius()
+
+
+    console.log 'center', center
+    console.log 'rad', rad
 
     segemnt1 = new THREE.Vector3().subVectors(end,start)
     segemnt2 = new THREE.Vector3().subVectors(start,center)
