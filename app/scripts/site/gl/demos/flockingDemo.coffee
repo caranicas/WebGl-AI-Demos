@@ -118,7 +118,7 @@ class FlockingDemo extends Demo
 
   __update: ->
     for entity in @sceneObjs
-     entity.update({boids:@sceneObjs})
+     entity.update(@sceneObjs)
 
 
 

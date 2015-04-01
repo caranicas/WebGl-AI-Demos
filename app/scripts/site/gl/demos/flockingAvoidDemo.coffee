@@ -1,7 +1,7 @@
 THREE = require 'threejs'
 Demo = require './flockingDemo'
 Boid = require './../components/objs/normal/boid.coffee'
-Behavior = require './../components/behaviors/base/flockAvoidBehavior.coffee'
+Behavior = require './../components/behaviors/base/flockBehavior.coffee'
 Constraint = require './../components/behaviors/constraints/flockAvoidConstraint.coffee'
 Static = require './../components/objs/normal/static.coffee'
 Utils = require '../../utils/goblinUtils'
@@ -42,7 +42,7 @@ class FlockingAvoidDemo extends Demo
       xvel = Math.random()
       yvel = Math.random()
       zvel = Math.random()
-      boid.init({behavior:new Behavior(boid,@constraints, @avoidObjs), mesh:themesh, bounding:@size, velocity:new THREE.Vector3(xvel, yvel, zvel)})
+      boid.init({behavior:new Behavior(boid,@constraints), mesh:themesh, bounding:@size, velocity:new THREE.Vector3(xvel, yvel, zvel)})
       @boids.push(boid)
       @scene.add(boid.mesh)
       @sceneObjs.push(boid)
@@ -66,13 +66,18 @@ class FlockingAvoidDemo extends Demo
       ++i
 
   __update: ->
-    for entity in @sceneObjs
+    console.log 'UPDATE BOIDS'
+    for entity in @boids
       entity.update(@boids)
 
     for avoid in @avoidObjs
+      console.log 'avois', avoid.acceleration.x
+
+    console.log 'UPDATE AVOIDS'
+    for avoid in @avoidObjs
       avoid.update()
 
-
+    alert 'pause'
 
 
 
