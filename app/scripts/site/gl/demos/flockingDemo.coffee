@@ -22,8 +22,6 @@ class FlockingDemo extends Demo
 
   __initGeometry: ->
     super
-    console.log 'INITAL GEMOTERY2'
-
     @createSkyBox()
     @createBoids()
 
@@ -120,7 +118,7 @@ class FlockingDemo extends Demo
 
   __update: ->
     for entity in @sceneObjs
-     entity.update(@sceneObjs)
+     entity.update({boids:@sceneObjs})
 
 
 
