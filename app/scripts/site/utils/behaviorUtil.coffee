@@ -38,8 +38,7 @@ class Util
     else if vector.z > bounds-buffer
       avoidance.z = -strength
 
-    return avoidance;
-
+    return avoidance
 
   facing:(entity) ->
     vel = entity.getVelocity().clone()
@@ -48,6 +47,34 @@ class Util
     quat = new THREE.Quaternion()
     quat.setFromUnitVectors(up,vel)
     entity.mesh.rotation.setFromQuaternion(quat,'XYZ')
+
+
+  lookAhead:(position, velocity, lookMag) ->
+    ahead = velocity.clone().normalize()
+    ahead.multiplyScalar lookMag
+    look = new THREE.Vector3().addVectors(position,ahead)
+    look
+
+  doesLineIntersectSphere:(line, sphericalEntity) ->
+    start = line.start
+    end = line.end
+    center = sphericalEntity.getCenter()
+    rad = sphericalEntity.getRadius()
+
+    segemnt1 = new THREE.Vector3().subVectors(end,start)
+    segemnt2 = new THREE.Vector3().subVectors(start,center)
+    numSq = new THREE.Vector3().crossVectors(segemnt1,segemnt2)
+    numerator = numSq.length()
+    demoinator = segemnt2.length()
+    d = numerator/demoinator
+
+    if d > rad
+      return false
+    else
+      return true
+
+  vectorMagnitude:(vec3) ->
+
 
   # facing_old:(entity) ->
   #   vel = entity.getVelocity().clone()

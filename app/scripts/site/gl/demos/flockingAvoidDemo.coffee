@@ -1,9 +1,9 @@
 THREE = require 'threejs'
 Demo = require './flockingDemo'
 Boid = require './../components/objs/normal/boid.coffee'
-Behavior = require './../components/behaviors/base/flockBehavior.coffee'
+Behavior = require './../components/behaviors/base/flockAvoidBehavior.coffee'
 Constraint = require './../components/behaviors/constraints/flockAvoidConstraint.coffee'
-Static = require './../components/objs/normal/static.coffee'
+Static = require './../components/objs/normal/sphere.coffee'
 Utils = require '../../utils/goblinUtils'
 
 
@@ -24,8 +24,6 @@ class FlockingAvoidDemo extends Demo
     @__createAvoidObjects()
     super
 
-
-
   __initDat:->
     super
 
@@ -43,7 +41,7 @@ class FlockingAvoidDemo extends Demo
       xvel = Math.random()
       yvel = Math.random()
       zvel = Math.random()
-      boid.init({behavior:new Behavior(boid,@constraints), mesh:themesh, bounding:@size, velocity:new THREE.Vector3(xvel, yvel, zvel)})
+      boid.init({behavior:new Behavior(boid,@constraints,@avoidObjs), mesh:themesh, bounding:@size, velocity:new THREE.Vector3(xvel, yvel, zvel)})
       @boids.push(boid)
       @scene.add(boid.mesh)
       @sceneObjs.push(boid)
@@ -56,7 +54,6 @@ class FlockingAvoidDemo extends Demo
       randY = (Math.random()*@size) - (Math.random()*@size)
       randZ = (Math.random()*@size) - (Math.random()*@size)
       geometry = new THREE.SphereGeometry(10, 8, 6)
-      #CylinderGeometry(0,1,4,8,1)
       material = new THREE.MeshLambertMaterial( { color: 0xff00ff, wireframe: false} )
       themesh = new THREE.Mesh( geometry, material )
       themesh.position.set(randX,randY,randZ)
@@ -64,10 +61,10 @@ class FlockingAvoidDemo extends Demo
       avoid.init({mesh:themesh, velocity:new THREE.Vector3()})
       @scene.add(avoid.mesh)
       @avoidObjs.push(avoid)
+      @sceneObjs.push(avoid)
       ++i
 
   __update: ->
-    console.log 'UPDATE BOIDS'
     for entity in @boids
       entity.update(@boids)
 

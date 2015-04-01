@@ -111,14 +111,14 @@ class FlockingDemo extends Demo
       yvel = Math.random()
       zvel = Math.random()
       boid.init({behavior:new Behavior(boid,@constraints), mesh:themesh, bounding:@size, velocity:new THREE.Vector3(xvel, yvel, zvel)})
-      #@boids.push(boid)
+      @boids.push(boid)
       @scene.add(boid.mesh)
       @sceneObjs.push(boid)
       ++i
 
   __update: ->
-    for entity in @sceneObjs
-     entity.update(@sceneObjs)
+    for entity in @boids
+     entity.update(@boids)
 
 
 
