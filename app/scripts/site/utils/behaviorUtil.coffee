@@ -38,8 +38,7 @@ class Util
     else if vector.z > bounds-buffer
       avoidance.z = -strength
 
-    return avoidance;
-
+    return avoidance
 
   facing:(entity) ->
     vel = entity.getVelocity().clone()
@@ -48,6 +47,16 @@ class Util
     quat = new THREE.Quaternion()
     quat.setFromUnitVectors(up,vel)
     entity.mesh.rotation.setFromQuaternion(quat,'XYZ')
+
+  lookAhead:(position, velocity, lookMag) ->
+    ahead = velocity.clone().normalize()
+    ahead.multiplyScalar lookMag
+    look = new THREE.Vector3().addVectors(position,ahead)
+    look
+
+
+  randomUnit: ->
+    (Math.random()*2)-1
 
   # facing_old:(entity) ->
   #   vel = entity.getVelocity().clone()

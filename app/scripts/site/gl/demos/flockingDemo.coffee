@@ -1,6 +1,6 @@
 THREE = require 'threejs'
 Demo = require './DemoInterface'
-Behavior = require './../components/behaviors/flockBehavior.coffee'
+Behavior = require './../components/behaviors/base/flockBehavior.coffee'
 Constraint = require './../components/behaviors/constraints/flockConstraint.coffee'
 Boid = require './../components/objs/normal/boid.coffee'
 Utils = require '../../utils/goblinUtils'
@@ -21,9 +21,9 @@ class FlockingDemo extends Demo
     @constraints = new Constraint()
 
   __initGeometry: ->
+    super
     @createSkyBox()
     @createBoids()
-    super
 
   __initDat:->
     super
@@ -90,6 +90,7 @@ class FlockingDemo extends Demo
       newMat = new THREE.MeshBasicMaterial({ map: THREE.ImageUtils.loadTexture( imagePrefix + directions[i] + imageSuffix ),side:THREE.BackSide})
       materialArray.push(newMat)
       i++
+
     skyMaterial = new THREE.MeshFaceMaterial( materialArray )
     skyBox = new THREE.Mesh( skyGeometry, skyMaterial )
     skyBox.position.set(0,@vertOff,0)
@@ -116,8 +117,8 @@ class FlockingDemo extends Demo
       ++i
 
   __update: ->
-    for entity in @sceneObjs
-     entity.update(@sceneObjs)
+    for entity in @boids
+     entity.update(@boids)
 
 
 
