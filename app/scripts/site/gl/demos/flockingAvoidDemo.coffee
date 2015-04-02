@@ -32,7 +32,7 @@ class FlockingAvoidDemo extends Demo
     while i < @flockCount
       randX = 0#(Math.random()*(@size/5)) - (@size/10)
       randY = 0#(Math.random()*(@size/5)) - (@size/10)
-      randZ = -90#(Math.random()*(@size/5)) - (@size/10)
+      randZ = -99#(Math.random()*(@size/5)) - (@size/10)
       geometry = new THREE.CylinderGeometry(0,1,4,8,1)
       material = new THREE.MeshLambertMaterial( { color: 0x00ffff, wireframe: false} )
       themesh = new THREE.Mesh( geometry, material )
@@ -75,5 +75,6 @@ class FlockingAvoidDemo extends Demo
     for avoid in @avoidObjs
       avoid.update()
 
+    alert 'pause'
 
 module.exports = FlockingAvoidDemo

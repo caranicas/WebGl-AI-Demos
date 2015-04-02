@@ -23,10 +23,20 @@ class FlockBehavior extends Behavior
     @walls = Util.avoidWalls(@boid.getPosition(),(@boid.bounding/2),(@boid.bounding/10), @constraints.maxAvoid)
 
   __applyForces: ->
+    console.log 'boid ',@,@boid.acceleration
+    console.log 'avoid0 ', @avoids[0], @avoids[0].acceleration
+    console.log 'avoid1 ', @avoids[1], @avoids[1].acceleration
+    @boid.acceleration.add(@walls)
+    console.log '\n\n\n'
+
+    console.log 'boid post ',@, @boid.acceleration
+    console.log 'avoid0 post  ', @avoids[0], @avoids[0].acceleration
+    console.log 'avoid1 post ', @avoids[1], @avoids[1].acceleration
+
     @boid.acceleration.add(@separation)
     @boid.acceleration.add(@alignment)
     @boid.acceleration.add(@cohesion)
-    @boid.acceleration.add(@walls)
+
 
   calcAlignment:(boids)->
     total = new THREE.Vector3(0,0,0)

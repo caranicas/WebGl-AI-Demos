@@ -25,6 +25,7 @@ class Entity
     @__clearAccel()
 
   __updateVelocity: ->
+    console.log 'update velocity ',@, @acceleration
     @velocity.add(@acceleration)
     @__capVelocity()
 
