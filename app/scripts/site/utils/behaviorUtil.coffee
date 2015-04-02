@@ -54,30 +54,9 @@ class Util
     look = new THREE.Vector3().addVectors(position,ahead)
     look
 
-  doesLineIntersectSphere:(line, sphericalEntity) ->
-    start = line.start
-    end = line.end
-    center = sphericalEntity.getCenter()
-    rad = sphericalEntity.getRadius()
 
-
-    console.log 'center', center
-    console.log 'rad', rad
-
-    segemnt1 = new THREE.Vector3().subVectors(end,start)
-    segemnt2 = new THREE.Vector3().subVectors(start,center)
-    numSq = new THREE.Vector3().crossVectors(segemnt1,segemnt2)
-    numerator = numSq.length()
-    demoinator = segemnt2.length()
-    d = numerator/demoinator
-
-    if d > rad
-      return false
-    else
-      return true
-
-  vectorMagnitude:(vec3) ->
-
+  randomUnit: ->
+    (Math.random()*2)-1
 
   # facing_old:(entity) ->
   #   vel = entity.getVelocity().clone()

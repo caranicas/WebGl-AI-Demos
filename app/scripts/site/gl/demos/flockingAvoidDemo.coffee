@@ -9,8 +9,8 @@ Utils = require '../../utils/goblinUtils'
 
 class FlockingAvoidDemo extends Demo
 
-  flockCount:30
-  avoidCount:1
+  flockCount:100
+  avoidCount:20
   avoidObjs:new Array()
 
   constructor: ->
@@ -50,10 +50,10 @@ class FlockingAvoidDemo extends Demo
   __createAvoidObjects: ->
     i = 0
     while i < @avoidCount
-      randX = 0#(Math.random()*@size) - (Math.random()*@size)
-      randY = 0#(Math.random()*@size) - (Math.random()*@size)
-      randZ = 0#(Math.random()*@size) - (Math.random()*@size)
-      geometry = new THREE.SphereGeometry(10, 8, 6)
+      randX = ((Math.random()*@size) - @size/2)
+      randY = ((Math.random()*@size) - @size/2)
+      randZ = ((Math.random()*@size) - @size/2)
+      geometry = new THREE.SphereGeometry(4, 8, 6)
       material = new THREE.MeshLambertMaterial( { color: 0xff00ff, wireframe: false} )
       themesh = new THREE.Mesh( geometry, material )
       themesh.position.set(randX,randY,randZ)
