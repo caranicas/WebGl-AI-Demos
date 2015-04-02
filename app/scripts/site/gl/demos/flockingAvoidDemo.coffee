@@ -10,7 +10,7 @@ Utils = require '../../utils/goblinUtils'
 class FlockingAvoidDemo extends Demo
 
   flockCount:1
-  avoidCount:1
+  avoidCount:2
   avoidObjs:new Array()
 
   constructor: ->

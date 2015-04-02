@@ -34,7 +34,6 @@ class Util
       avoidance.y = -strength
 
     if vector.z < -bounds+buffer
-      console.log 'vectorz',vector,bounds,buffer
       avoidance.z = strength
     else if vector.z > bounds-buffer
       avoidance.z = -strength
