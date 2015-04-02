@@ -9,8 +9,8 @@ Utils = require '../../utils/goblinUtils'
 
 class FlockingAvoidDemo extends Demo
 
-  flockCount:100
-  avoidCount:20
+  flockCount:1
+  avoidCount:1
   avoidObjs:new Array()
 
   constructor: ->
@@ -30,9 +30,9 @@ class FlockingAvoidDemo extends Demo
   createBoids: ->
     i = 0
     while i < @flockCount
-      randX = (Math.random()*(@size/5)) - (@size/10)
-      randY = (Math.random()*(@size/5)) - (@size/10)
-      randZ = -100#(Math.random()*(@size/5)) - (@size/10)
+      randX = 0#(Math.random()*(@size/5)) - (@size/10)
+      randY = 0#(Math.random()*(@size/5)) - (@size/10)
+      randZ = -90#(Math.random()*(@size/5)) - (@size/10)
       geometry = new THREE.CylinderGeometry(0,1,4,8,1)
       material = new THREE.MeshLambertMaterial( { color: 0x00ffff, wireframe: false} )
       themesh = new THREE.Mesh( geometry, material )
@@ -50,9 +50,9 @@ class FlockingAvoidDemo extends Demo
   __createAvoidObjects: ->
     i = 0
     while i < @avoidCount
-      randX = ((Math.random()*@size) - @size/2)
-      randY = ((Math.random()*@size) - @size/2)
-      randZ = ((Math.random()*@size) - @size/2)
+      randX = 0#((Math.random()*@size) - @size/2)
+      randY = 0#((Math.random()*@size) - @size/2)
+      randZ = 0#((Math.random()*@size) - @size/2)
       geometry = new THREE.SphereGeometry(4, 8, 6)
       material = new THREE.MeshLambertMaterial( { color: 0xff00ff, wireframe: false} )
       themesh = new THREE.Mesh( geometry, material )
@@ -64,13 +64,16 @@ class FlockingAvoidDemo extends Demo
       @sceneObjs.push(avoid)
       ++i
 
+    console.log 'CREATE AVOID',@avoidObjs[0].acceleration.z
+
   __update: ->
+    console.log 'UPDATE BOIDS'
     for entity in @boids
       entity.update(@boids)
 
-    #for avoid in @avoidObjs
-    #  avoid.update()
-
+    console.log 'UPDATE AVOID',@avoidObjs[0].acceleration.z
+    for avoid in @avoidObjs
+      avoid.update()
 
 
 module.exports = FlockingAvoidDemo

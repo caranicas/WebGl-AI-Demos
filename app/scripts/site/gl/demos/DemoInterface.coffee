@@ -68,6 +68,7 @@ class DemoInterface
   loop:->
     requestAnimationFrame =>
       @loop()
+
     @__update()
     @__render()
 
