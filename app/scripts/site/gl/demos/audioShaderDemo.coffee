@@ -66,7 +66,6 @@ class AudioShaderDemo extends Demo
     @sceneObjs.push(@mesh)
 
 
-
     @mesh2 = new THREE.Mesh( @geometry, @material )
     @mesh2.position.y = 25
     @mesh2.position.x = 25
