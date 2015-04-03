@@ -20,6 +20,11 @@ module.exports = Backbone.Model.extend
         'url':'/flockingPhys'
         'name':'flockingPhys'
         'demoClass':require './gl/demos/flockingPhysicsDemo.coffee'
+      },
+      {
+        'url':'/audio'
+        'name':'audio'
+        'demoClass':require './gl/demos/audioShaderDemo.coffee'
       }
 
     ]
